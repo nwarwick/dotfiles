@@ -1,28 +1,29 @@
-# Path to your oh-my-zsh installation.
-export ZSH="/Users/nwarwick/.oh-my-zsh"
-
-ZSH_THEME="spaceship"
-
 # Oh-My-Zsh Plugins
 plugins=(
 	git
 	zsh-autosuggestions
 	macos
+	asdf
 	yarn
 	fzf
 )
 
-# Plugin customizations
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#ff00ff,bg=cyan,bold,underline"
-
-export FZF_DEFAULT="/usr/local/opt/fzf"
-
 # Paths
-export PATH="/usr/local/opt/postgres:$PATH"
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
+## Path to  oh-my-zsh installation.
+export ZSH="/Users/nickwarwick/.oh-my-zsh"
 
-# Default text editor
+## FZF Setup
+export FZF_BASE="/usr/local/opt/fzf/install"
+
+## Brew Setup
+export PATH="/opt/homebrew/bin:$PATH"
+
+export PATH="/usr/local/opt/postgresql@13/bin:$PATH"
+
+## asdf
+. /opt/homebrew/opt/asdf/libexec/asdf.sh
+
+## Default text editor
 export EDITOR=vim
 
 # Aliases
@@ -30,14 +31,20 @@ alias ll="ls -FGlAhp"
 alias folder="open -a Finder ./" # Opens current directory in MacOS Finder
 alias c="clear"
 alias myip="ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1'"
+alias oldbrew="/usr/local/bin/brew"
+## Git (lots of pre-existing aliases via oh-my-zsh)
 alias gbnuke="git branch --merged master --no-color | grep -v master | grep -v stable | xargs git branch -d"
-alias devdir="cd ~/Documents"
+alias gcob='git branch | fzf | xargs git checkout'
+alias gcom='git checkout master'
+alias gdb='git branch | fzf | xargs git branch -d'
+alias gDb='git branch | fzf | xargs git branch -D'
+
+alias devdir="cd ~/Documents/vention-dev.nosync"
+alias rdevdir="cd ~/Documents/vention-dev.nosync/vention_rails"
+alias pdevdir="cd ~/Documents/dev.nosync"
+
 alias killrails="pkill -f rails "
 
 source $ZSH/oh-my-zsh.sh
 
-
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+eval "$(starship init zsh)"
