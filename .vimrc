@@ -1,50 +1,55 @@
 set nocompatible
 filetype off
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
 
-" let Vundle manage Vundle, required
-Plugin 'gmarik/Vundle.vim'
+call plug#begin()
+" The default plugin directory will be as follows:
+"   - Vim (Linux/macOS): '~/.vim/plugged'
+"   - Vim (Windows): '~/vimfiles/plugged'
+"   - Neovim (Linux/macOS/Windows): stdpath('data') . '/plugged'
+" You can specify a custom plugin directory by passing it as the argument
+"   - e.g. `call plug#begin('~/.vim/plugged')`
+"   - Avoid using standard Vim directory names like 'plugin'
 
 " Plugins
-Plugin 'tpope/vim-sensible'
-Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-commentary'
-Plugin 'tpope/vim-rails'
-Plugin 'vim-ruby/vim-ruby'
-Plugin 'jiangmiao/auto-pairs'
-Plugin 'junegunn/fzf'
-Plugin 'junegunn/fzf.vim'
-Plugin 'dense-analysis/ale'
-Plugin 'preservim/nerdtree'
-Plugin 'vim-airline/vim-airline'
-Plugin 'morhetz/gruvbox'
-Plugin 'airblade/vim-gitgutter'
-Plugin 'mattn/emmet-vim'
-Plugin 'ludovicchabant/vim-gutentags'
-Plugin 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'tpope/vim-sensible'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-rails'
+Plug 'tpope/vim-fugitive'
+Plug 'prettier/vim-prettier', { 'do': 'yarn install --frozen-lockfile --production' }
+Plug 'dense-analysis/ale'
+Plug 'vim-ruby/vim-ruby'
+Plug 'jiangmiao/auto-pairs'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+Plug 'preservim/nerdtree'
+Plug 'vim-airline/vim-airline'
+Plug 'airblade/vim-gitgutter'
+Plug 'mattn/emmet-vim'
+Plug 'joshdick/onedark.vim'
+Plug 'sheerun/vim-polyglot'
 
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
-" End plugin code
+" Initialize plugin system
+" - Automatically executes `filetype plugin indent on` and `syntax enable`.
+call plug#end()
+" You can revert the settings after the call like so:
+"   filetype indent off   " Disable file-type-specific indentation
+"   syntax off
 
 set tabstop=2
+set termguicolors
 set noerrorbells visualbell t_vb=
 set mouse=a
-set background=dark
 " Show relative line numbers
 set number relativenumber
-set rtp+=/usr/local/opt/fzf
 " Write swp files to /tmp instead of current directory
 set swapfile
 set dir=/tmp
 
 let mapleader = ","
-syntax enable
-colorscheme gruvbox
-let $BAT_THEME='gruvbox'
+syntax on " Changed from 'enable'
+colorscheme onedark
 
 " Disable arrow keys
 noremap! <Up> <NOP>
@@ -78,8 +83,10 @@ nnoremap <leader>p :Files<CR>
 nnoremap <leader>f :Rg<CR>
 nnoremap <leader>g :GF?<CR>
 
-" ALE Config
-let g:ale_fix_on_save = 1
+" Coc config
+le g:coc_node_path = '/Users/nickwarwick/.asdf/shims/node'
+
+" ALE Config (for code linting)
 let g:ale_fixers = {
 			\		'*': ['remove_trailing_lines', 'trim_whitespace'],
 			\		'javascript': ['prettier', 'eslint'],
@@ -91,23 +98,6 @@ let g:ale_fixers = {
 			\		'html': ['prettier']
 			\	}
 
-" Coc config
-let g:coc_node_path = '/Users/nwarwick/.nvm/versions/node/v14.15.5/bin/node'
-
 " EMMET Config
 " redefine trigger key
 let g:user_emmet_leader_key=','
-
-
-" handling setting and unsetting BAT_THEME for fzf.vim
-augroup update_bat_theme
-    autocmd!
-    autocmd colorscheme * call ToggleBatEnvVar()
-augroup end
-function ToggleBatEnvVar()
-    if (&background == "light")
-        let $BAT_THEME='Monokai Extended Light'
-    else
-        let $BAT_THEME=''
-    endif
-endfunction
