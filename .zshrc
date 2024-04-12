@@ -33,15 +33,15 @@ alias c="clear"
 alias myip="ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1'"
 alias oldbrew="/usr/local/bin/brew"
 ## Git (lots of pre-existing aliases via oh-my-zsh)
-alias gbnuke="git branch --merged master --no-color | grep -v master | grep -v stable | xargs git branch -d"
+alias gbnuke="git branch --merged main --no-color | grep -v master | grep -v stable | xargs git branch -d"
 alias gcob='git branch | fzf | xargs git checkout'
-alias gcom='git checkout master'
+alias gcom='git checkout main'
 alias gdb='git branch | fzf | xargs git branch -d'
 alias gDb='git branch | fzf | xargs git branch -D'
 
-alias devdir="cd ~/Documents/vention-dev.nosync"
+alias wdevdir="cd ~/Documents/vention-dev.nosync"
 alias rdevdir="cd ~/Documents/vention-dev.nosync/vention_rails"
-alias pdevdir="cd ~/Documents/dev.nosync"
+alias devdir="cd ~/Documents/dev.nosync"
 
 alias killrails="pkill -f rails "
 
