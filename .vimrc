@@ -12,11 +12,9 @@ call plug#begin()
 
 " Plugins
 Plug 'tpope/vim-sensible'
-Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-rails'
-Plug 'tpope/vim-fugitive'
 Plug 'prettier/vim-prettier', { 'do': 'yarn install --frozen-lockfile --production' }
 Plug 'dense-analysis/ale'
 Plug 'vim-ruby/vim-ruby'
@@ -27,7 +25,6 @@ Plug 'preservim/nerdtree'
 Plug 'vim-airline/vim-airline'
 Plug 'airblade/vim-gitgutter'
 Plug 'mattn/emmet-vim'
-Plug 'joshdick/onedark.vim'
 Plug 'sheerun/vim-polyglot'
 
 " Initialize plugin system
@@ -38,7 +35,6 @@ call plug#end()
 "   syntax off
 
 set tabstop=2
-set termguicolors
 set noerrorbells visualbell t_vb=
 set mouse=a
 " Show relative line numbers
@@ -49,7 +45,6 @@ set dir=/tmp
 
 let mapleader = ","
 syntax on " Changed from 'enable'
-colorscheme onedark
 
 " Disable arrow keys
 noremap! <Up> <NOP>
@@ -74,9 +69,6 @@ noremap <C-\> :vsp<CR>
 nnoremap <C-m> :NERDTreeFind<CR>
 nnoremap <C-n> :NERDTreeToggle<CR>
 let NERDTreeShowHidden=1
-
-" Fugitive keybinds
-nnoremap <leader>gs :G<CR>
 
 " FZF keybinds
 nnoremap <leader>p :Files<CR>
