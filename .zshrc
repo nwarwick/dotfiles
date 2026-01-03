@@ -36,7 +36,6 @@ export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
 
 # Aliases
 alias v="nvim"
-alias vi="vim"
 alias ll="ls -FGlAhp"
 alias folder="open -a Finder ./" # Opens current directory in MacOS Finder
 alias c="clear"
