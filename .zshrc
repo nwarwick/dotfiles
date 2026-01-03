@@ -4,7 +4,6 @@ export ZSH="$HOME/.oh-my-zsh"
 
 plugins=(
 	git
-	zsh-autosuggestions
 	macos
 	yarn
 	fzf
@@ -24,7 +23,7 @@ export PATH="/opt/homebrew/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 
 ## Postgres
-export PATH="/usr/local/opt/postgresql@16/bin:$PATH"
+export PATH="/opt/homebrew/opt/postgresql@16/bin:$PATH"
 
 # Initialize asdf
 . /opt/homebrew/opt/asdf/libexec/asdf.sh
