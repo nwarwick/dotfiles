@@ -78,8 +78,9 @@ fi
 # Get the directory where this script is located
 DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-# Create config directory if it doesn't exist
+# Create config directories if they don't exist
 mkdir -p ~/.config
+mkdir -p ~/.claude
 
 # Create symlinks
 print_step "Creating symlinks..."
@@ -105,6 +106,9 @@ backup_and_link() {
 backup_and_link "$DOTFILES_DIR/.zshrc" "$HOME/.zshrc"
 backup_and_link "$DOTFILES_DIR/.config/nvim" "$HOME/.config/nvim"
 backup_and_link "$DOTFILES_DIR/.config/ghostty" "$HOME/.config/ghostty"
+backup_and_link "$DOTFILES_DIR/.config/aerospace" "$HOME/.config/aerospace"
+backup_and_link "$DOTFILES_DIR/.claude/settings.json" "$HOME/.claude/settings.json"
+backup_and_link "$DOTFILES_DIR/.claude/CLAUDE.md" "$HOME/.claude/CLAUDE.md"
 
 # Setup fzf key bindings
 print_step "Setting up fzf..."

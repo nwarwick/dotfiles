@@ -20,6 +20,7 @@ The setup script will install all dependencies and create symlinks automatically
 | `.config/nvim/` | Neovim with LazyVim |
 | `.config/ghostty/` | Ghostty terminal |
 | `.config/aerospace/` | AeroSpace tiling window manager |
+| `.claude/` | Claude Code settings and global instructions |
 
 ## Manual Installation
 
@@ -51,6 +52,8 @@ ln -sf ~/dotfiles/.zshrc ~/.zshrc
 ln -sf ~/dotfiles/.config/nvim ~/.config/nvim
 ln -sf ~/dotfiles/.config/ghostty ~/.config/ghostty
 ln -sf ~/dotfiles/.config/aerospace ~/.config/aerospace
+ln -sf ~/dotfiles/.claude/settings.json ~/.claude/settings.json
+ln -sf ~/dotfiles/.claude/CLAUDE.md ~/.claude/CLAUDE.md
 ```
 
 ### 5. Setup Neovim
@@ -108,6 +111,13 @@ Tiling window manager for macOS. Key bindings use Alt as the main modifier.
 - **Focus**: Alt+H/J/K/L for vim-style navigation
 - **Move windows**: Alt+Shift+H/J/K/L
 - **Layouts**: Alt+/ for tiles, Alt+, for accordion
+
+## Claude Code
+
+Global settings for [Claude Code](https://claude.ai/code):
+
+- **Attribution disabled**: No AI references in commits or PRs
+- **CLAUDE.md**: Global instructions applied to all projects
 
 ## Version Management
 
