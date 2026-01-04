@@ -25,8 +25,8 @@ export PATH="$HOME/.local/bin:$PATH"
 ## Postgres
 export PATH="/opt/homebrew/opt/postgresql@16/bin:$PATH"
 
-# Initialize asdf
-. /opt/homebrew/opt/asdf/libexec/asdf.sh
+# Initialize mise
+eval "$(mise activate zsh)"
 
 ## Default text editor
 export EDITOR=nvim

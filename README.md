@@ -33,7 +33,7 @@ If you prefer to install manually:
 ### 2. Install packages
 
 ```bash
-brew install neovim fzf asdf starship zsh-autosuggestions ripgrep fd lazygit postgresql@16 libpq
+brew install neovim fzf mise starship zsh-autosuggestions ripgrep fd lazygit postgresql@16 libpq
 brew install --cask font-jetbrains-mono-nerd-font ghostty
 ```
 
@@ -100,13 +100,17 @@ Built on [LazyVim](https://www.lazyvim.org/) with these extras enabled:
 
 ## Version Management
 
-Uses [asdf](https://asdf-vm.com/) for managing runtime versions. The setup script installs plugins for Node.js, Ruby, and Python.
+Uses [mise](https://mise.jdx.dev/) for managing runtime versions (node, ruby, python, etc.).
 
 ```bash
-# Install a version
-asdf install nodejs latest
-asdf global nodejs latest
+# Install and activate a version
+mise use node@lts
+mise use ruby@latest
+mise use python@latest
 
 # List installed versions
-asdf list
+mise list
+
+# Install all versions from .mise.toml
+mise install
 ```

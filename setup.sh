@@ -50,7 +50,7 @@ print_step "Installing Homebrew packages..."
 brew install \
     neovim \
     fzf \
-    asdf \
+    mise \
     starship \
     zsh-autosuggestions \
     ripgrep \
@@ -110,11 +110,9 @@ backup_and_link "$DOTFILES_DIR/.config/ghostty" "$HOME/.config/ghostty"
 print_step "Setting up fzf..."
 $(brew --prefix)/opt/fzf/install --key-bindings --completion --no-update-rc --no-bash --no-fish
 
-# Install asdf plugins (optional - user can add what they need)
-print_step "Installing common asdf plugins..."
-asdf plugin add nodejs https://github.com/asdf-vm/asdf-nodejs.git 2>/dev/null || true
-asdf plugin add ruby https://github.com/asdf-vm/asdf-ruby.git 2>/dev/null || true
-asdf plugin add python https://github.com/asdf-vm/asdf-python.git 2>/dev/null || true
+# Trust mise config directory
+print_step "Setting up mise..."
+mise trust ~/dotfiles 2>/dev/null || true
 
 echo ""
 print_step "Setup complete!"
@@ -126,7 +124,7 @@ echo "     (LazyVim will automatically install plugins on first launch)"
 echo "  3. In Neovim, run :checkhealth to verify setup"
 echo ""
 echo "Optional:"
-echo "  - Install language versions with asdf:"
-echo "      asdf install nodejs latest"
-echo "      asdf install ruby latest"
-echo "      asdf install python latest"
+echo "  - Install language versions with mise:"
+echo "      mise use node@lts"
+echo "      mise use ruby@latest"
+echo "      mise use python@latest"
