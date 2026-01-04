@@ -15,3 +15,6 @@ window-inherit-working-directory = true
 
 # Theme (ghostty has built-in themes, or use custom colors)
 # theme = catppuccin-mocha
+
+# Keybindings
+keybind = shift+enter=text:\x1b\r
