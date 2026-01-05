@@ -53,8 +53,11 @@ brew install \
     mise \
     starship \
     zsh-autosuggestions \
+    zsh-syntax-highlighting \
     ripgrep \
     fd \
+    bat \
+    eza \
     lazygit \
     postgresql@16 \
     libpq
@@ -116,7 +119,7 @@ $(brew --prefix)/opt/fzf/install --key-bindings --completion --no-update-rc --no
 
 # Trust mise config directory
 print_step "Setting up mise..."
-mise trust ~/dotfiles 2>/dev/null || true
+mise trust "$DOTFILES_DIR" 2>/dev/null || true
 
 echo ""
 print_step "Setup complete!"

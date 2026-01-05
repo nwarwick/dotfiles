@@ -36,12 +36,15 @@ export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
 
 # Aliases
 alias v="nvim"
-alias ll="ls -FGlAhp"
+alias cat="bat"
+alias ls="eza"
+alias ll="eza -lah --git"
 alias folder="open -a Finder ./" # Opens current directory in MacOS Finder
 alias c="clear"
 alias myip="ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1'"
 
 ## Git (lots of pre-existing aliases via oh-my-zsh)
+alias lg="lazygit"
 alias gbnuke="git branch --merged main --no-color | grep -v master | grep -v stable | xargs git branch -d"
 alias gcob='git branch | fzf | xargs git checkout'
 alias gcom='git checkout main'
@@ -54,4 +57,5 @@ alias pdevdir="cd ~/Documents/2-Areas/dev.nosync/personal.nosync"
 eval "$(starship init zsh)"
 
 source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
