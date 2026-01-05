@@ -54,6 +54,21 @@ alias gDb='git branch | fzf | xargs git branch -D'
 alias devdir="cd ~/Documents/2-Areas/dev.nosync/nodal.nosync"
 alias pdevdir="cd ~/Documents/2-Areas/dev.nosync/personal.nosync"
 
+# Notify on long-running commands (>30s)
+_cmd_start_time=0
+_cmd_name=""
+preexec() {
+  _cmd_start_time=$SECONDS
+  _cmd_name="${1%% *}"
+}
+precmd() {
+  local elapsed=$(( SECONDS - _cmd_start_time ))
+  if (( elapsed > 30 && _cmd_start_time > 0 )); then
+    osascript -e "display notification \"Finished in ${elapsed}s\" with title \"$_cmd_name\""
+  fi
+  _cmd_start_time=0
+}
+
 eval "$(starship init zsh)"
 
 source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
