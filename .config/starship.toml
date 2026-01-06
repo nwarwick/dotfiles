@@ -1,0 +1,3 @@
+# Increase command timeout from default 500ms to 1000ms
+# Prevents git command timeout warnings in large repos
+command_timeout = 1000
