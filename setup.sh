@@ -28,6 +28,9 @@ if [[ "$(uname)" != "Darwin" ]]; then
     exit 1
 fi
 
+# Get the directory where this script is located
+DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
 # Install Xcode Command Line Tools
 if ! xcode-select -p &>/dev/null; then
     print_step "Installing Xcode Command Line Tools..."
@@ -45,30 +48,9 @@ else
     print_step "Homebrew already installed"
 fi
 
-# Install Homebrew packages
+# Install Homebrew packages from Brewfile
 print_step "Installing Homebrew packages..."
-brew install \
-    neovim \
-    fzf \
-    mise \
-    starship \
-    zsh-autosuggestions \
-    zsh-syntax-highlighting \
-    ripgrep \
-    fd \
-    bat \
-    eza \
-    lazygit \
-    postgresql@16 \
-    libpq
-
-# Install Nerd Font
-print_step "Installing JetBrainsMono Nerd Font..."
-brew install --cask font-jetbrains-mono-nerd-font
-
-# Install Ghostty
-print_step "Installing Ghostty terminal..."
-brew install --cask ghostty
+brew bundle --file="$DOTFILES_DIR/Brewfile"
 
 # Install Oh My Zsh
 if [[ ! -d "$HOME/.oh-my-zsh" ]]; then
@@ -77,9 +59,6 @@ if [[ ! -d "$HOME/.oh-my-zsh" ]]; then
 else
     print_step "Oh My Zsh already installed"
 fi
-
-# Get the directory where this script is located
-DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 # Create config directories if they don't exist
 mkdir -p ~/.config
