@@ -47,8 +47,13 @@
       "Bash(npm --version)",
       "Bash(python --version)",
       "Bash(python3 --version)",
+      "Bash(curl:*)",
+      "Bash(rails:*)",
       "Bash(bin/rails:*)",
-      "Bash(bundle exec rails:*)"
+      "Bash(bin/rake:*)",
+      "Bash(bundle exec rails:*)",
+      "Bash(bundle exec rake:*)",
+      "Bash(bundle exec rspec:*)"
     ],
     "deny": [
       "Bash(rm -rf:*)",
