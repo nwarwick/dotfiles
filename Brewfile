@@ -8,6 +8,7 @@ brew "fd"
 brew "bat"
 brew "eza"
 brew "lazygit"
+brew "uv"
 
 # Shell plugins
 brew "zsh-autosuggestions"
