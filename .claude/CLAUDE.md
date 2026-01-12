@@ -6,6 +6,11 @@
 - Follow existing commit message style in the repo
 - Keep messages concise and focused on what changed and why
 
+## Git Operations
+
+- Never commit or push unless explicitly asked
+- You may suggest committing or pushing when appropriate
+
 ## When Planning
 
 - Present multiple options with pros/cons when they exist
