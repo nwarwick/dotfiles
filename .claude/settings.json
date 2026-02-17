@@ -1,53 +1,55 @@
 {
-  "attribution": {
-    "commit": "",
-    "pr": ""
-  },
   "permissions": {
     "allow": [
-      "Bash(git status:*)",
-      "Bash(git diff:*)",
-      "Bash(git log:*)",
-      "Bash(git branch:*)",
-      "Bash(git show:*)",
-      "Bash(ls:*)",
-      "Bash(which:*)",
-      "Bash(echo:*)",
-      "Bash(cat:*)",
-      "Bash(head:*)",
-      "Bash(tail:*)",
-      "Bash(wc:*)",
-      "Bash(pwd)",
-      "Bash(brew --version:*)",
-      "Bash(brew list:*)",
-      "Bash(node --version)",
-      "Bash(npm --version)",
-      "Bash(python --version)",
-      "Bash(python3 --version)",
-      "Bash(curl:*)",
-      "Bash(rails:*)",
-      "Bash(bin/rails:*)",
-      "Bash(bin/rake:*)",
-      "Bash(bundle exec rails:*)",
-      "Bash(bundle exec rake:*)",
-      "Bash(bundle exec rspec:*)"
+      "WebSearch",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "WebFetch(domain:gist.github.com)",
+      "WebFetch(domain:rubygems.org)",
+      "WebFetch(domain:rubyllm.com)",
+      "WebFetch(domain:docs.anthropic.com)",
+      "WebFetch(domain:platform.claude.com)",
+      "WebFetch(domain:www.anthropic.com)",
+      "WebFetch(domain:ui.shadcn.com)",
+      "WebFetch(domain:inertia-rails.dev)",
+      "WebFetch(domain:vite-ruby.netlify.app)",
+      "Bash(bin/rails test:*)",
+      "Bash(bin/rails db:migrate:*)",
+      "Bash(bin/rails generate:*)",
+      "Bash(bin/rails runner:*)",
+      "Bash(bin/rails c:*)",
+      "Bash(RAILS_ENV=test bin/rails test:*)",
+      "Bash(RAILS_ENV=test bin/rails db:migrate:*)",
+      "Bash(RAILS_ENV=test bin/vite build:*)",
+      "Bash(SKIP_VITE_TEST_BUILD=1 bin/rails test:*)",
+      "Bash(bundle exec rubocop:*)",
+      "Bash(bin/rubocop:*)",
+      "Bash(bundle exec brakeman:*)",
+      "Bash(bundle info:*)",
+      "Bash(bundle show:*)",
+      "Bash(npm run check:*)",
+      "Bash(npx tsc:*)",
+      "Bash(npx eslint:*)",
+      "Bash(npm install:*)",
+      "Bash(npm ls:*)",
+      "Bash(npx shadcn@latest add:*)",
+      "Bash(bin/vite build:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git checkout:*)",
+      "Bash(git mv:*)",
+      "Bash(git ls-tree:*)",
+      "Bash(gh pr diff:*)",
+      "Bash(ruby -c:*)",
+      "Bash(ruby:*)",
+      "Bash(bundle exec ruby:*)"
     ],
-    "deny": [
-      "Bash(rm -rf:*)",
-      "Bash(sudo:*)",
-      "Bash(chmod 777:*)",
-      "Read(./.env)",
-      "Read(./.env.*)",
-      "Read(./secrets/**)",
-      "Read(**/.env)",
-      "Read(**/.env.*)",
-      "Edit(/etc/**)",
-      "Edit(~/.ssh/**)"
-    ]
+    "deny": []
   },
   "hooks": {
-    "Stop": [
+    "Notification": [
       {
+        "matcher": "",
         "hooks": [
           {
             "type": "command",
@@ -55,16 +57,10 @@
           }
         ]
       }
-    ],
-    "Notification": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "afplay /System/Library/Sounds/Ping.aiff"
-          }
-        ]
-      }
     ]
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "/bin/bash /Users/nicholaswarwick/.claude/statusline-starship.sh"
   }
 }
