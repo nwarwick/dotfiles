@@ -31,7 +31,8 @@ eval "$(mise activate zsh)"
 ## Default text editor
 export EDITOR=nvim
 
-## Libpq 
+
+## Libpq
 export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
 
 # Aliases
@@ -58,4 +59,7 @@ eval "$(starship init zsh)"
 
 source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# For secrets that we do not want to commit to Git
+[[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
 
