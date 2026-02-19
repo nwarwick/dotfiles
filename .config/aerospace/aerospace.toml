@@ -151,9 +151,7 @@ automatically-unhide-macos-hidden-apps = false
     # alt-z = 'workspace Z'
 
     # Programs
-    # alt-b = 'exec-and-forget open -a "Google Chrome"'
-    # alt-b = 'exec-and-forget open -a "ChatGPT Atlas"'
-    alt-b = 'exec-and-forget open "/Applications/ChatGPT Atlas.app"'
+    alt-b = 'exec-and-forget open -a "Google Chrome"'
     alt-f = 'exec-and-forget open -a "Finder"'
     alt-e = 'exec-and-forget open -a "Mail"'
     alt-c = 'exec-and-forget open -a "Calendar"'
