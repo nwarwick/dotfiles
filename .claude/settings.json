@@ -42,7 +42,10 @@
       "Bash(gh pr diff:*)",
       "Bash(ruby -c:*)",
       "Bash(ruby:*)",
-      "Bash(bundle exec ruby:*)"
+      "Bash(bundle exec ruby:*)",
+      "Read(~/Documents/**)",
+      "Read(~/Downloads/**)",
+      "Read(~/.claude/**)"
     ],
     "deny": []
   },
