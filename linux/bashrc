@@ -1,0 +1,29 @@
+# If not running interactively, don't do anything
+[[ $- != *i* ]] && return
+
+# Omarchy defaults (eza/zoxide/fzf/mise/starship/etc. are configured here)
+source ~/.local/share/omarchy/default/bash/rc
+
+# Personal aliases
+alias v="nvim"
+alias c="clear"             # Overrides Omarchy's c='opencode'; opencode still on PATH
+alias cat="bat"
+alias ll="eza -lah --git"
+alias lg="lazygit"
+alias myip="ip -4 -o addr show scope global | awk '{print \$4}' | cut -d/ -f1"
+
+# Git
+alias gcom='git checkout main'
+alias gcob='git branch | fzf | xargs git checkout'
+alias gdb='git branch | fzf | xargs git branch -d'
+alias gDb='git branch | fzf | xargs git branch -D'
+alias gbnuke='git branch --merged main --no-color | grep -v master | grep -v stable | xargs git branch -d'
+
+# PARA shortcuts
+alias devdir="cd ~/Documents/2-Areas/dev/nodal"
+alias pdevdir="cd ~/Documents/2-Areas/dev/personal"
+
+export EDITOR=nvim
+
+# Local-only secrets/overrides
+[[ -f ~/.bashrc.local ]] && source ~/.bashrc.local

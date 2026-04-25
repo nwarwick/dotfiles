@@ -4,25 +4,29 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Repository Overview
 
-This is a personal dotfiles repository for macOS development environment configuration. It contains configuration files that are symlinked to `~/.config/` and `~/` during setup.
+Personal dotfiles. Primary target is macOS; Omarchy (Arch + Hyprland) is
+a secondary target for the cross-platform configs. Files are symlinked to
+`~/.config/` and `~/` during setup.
 
 ## Setup
 
 ```bash
-./setup.sh           # Full automated setup (Homebrew, packages, symlinks)
-source ~/.zshrc      # Reload shell after setup
+./setup-macos.sh         # macOS: Homebrew, packages, symlinks
+./linux/setup-linux.sh   # Omarchy/Arch: pacman extras + safe symlinks only
 ```
 
 ## Structure
 
 | Path | Purpose |
 |------|---------|
-| `.zshrc` | Zsh config with Oh My Zsh, Starship prompt, and aliases |
+| `.zshrc` | Zsh config (macOS) with Oh My Zsh, Starship, aliases |
 | `.config/nvim/` | LazyVim-based Neovim configuration |
 | `.config/ghostty/` | Ghostty terminal config |
-| `.config/aerospace/` | AeroSpace tiling window manager |
+| `.config/aerospace/` | AeroSpace tiling window manager (macOS) |
 | `.claude/` | Claude Code settings (symlinked to `~/.claude/`) |
-| `setup.sh` | Automated installation script |
+| `.mcp.json` | MCP server config |
+| `setup-macos.sh` | macOS installer |
+| `linux/` | Omarchy/Arch installer + bashrc + extra packages |
 
 ## Neovim Configuration
 
@@ -42,3 +46,13 @@ To add/modify plugins, edit files in `.config/nvim/lua/plugins/`. LazyVim conven
 - Git aliases prefer `fzf` for interactive selection (`gcob`, `gdb`)
 - AeroSpace uses Alt as the main modifier key
 - Symlinks are created from this repo to home directory locations
+
+## Linux / Omarchy notes
+
+- `linux/setup-linux.sh` only links safe configs (`.bashrc`, `.claude/`,
+  `.mcp.json`). It deliberately avoids overriding Omarchy's nvim, ghostty,
+  and starship configs — the script prints opt-in commands at the end.
+- `linux/bashrc` sources Omarchy's default rc first
+  (`~/.local/share/omarchy/default/bash/rc`), then layers personal aliases.
+- Most Brewfile packages are already in Omarchy; `linux/packages.txt` only
+  lists the gaps.

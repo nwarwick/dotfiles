@@ -1,0 +1,6 @@
+# Packages required beyond Omarchy's defaults.
+# Install with: sudo pacman -S --needed $(grep -v '^#' packages.txt | xargs)
+#
+# Omarchy already provides: neovim, fzf, mise, starship, ripgrep, fd,
+# bat, eza, lazygit, zoxide, ghostty, ttf-jetbrains-mono-nerd.
+uv
