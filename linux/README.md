@@ -4,14 +4,17 @@ Linux-side complement to the macOS dotfiles. Targets [Omarchy](https://omarchy.o
 (Arch + Hyprland), but the bashrc/setup script work on any Arch-based distro
 that has the same Omarchy bash defaults at `~/.local/share/omarchy/`.
 
-## What gets symlinked
+## What gets wired up
 
-`./setup-linux.sh` only links the configs that don't conflict with
-Omarchy's curated defaults:
+`./setup-linux.sh` does two things:
+
+1. Appends a single source line to `~/.bashrc` (idempotent) so Omarchy
+   keeps owning that file. See "Why not symlink ~/.bashrc" below.
+2. Symlinks the Claude/MCP configs that don't conflict with Omarchy:
 
 | Source | Target |
 |---|---|
-| `linux/bashrc` | `~/.bashrc` |
+| `linux/bashrc.local` | sourced from `~/.bashrc` (not symlinked) |
 | `.claude/CLAUDE.md` | `~/.claude/CLAUDE.md` |
 | `.claude/settings.json` | `~/.claude/settings.json` |
 | `.claude/commands` | `~/.claude/commands` |
@@ -19,6 +22,15 @@ Omarchy's curated defaults:
 | `.mcp.json` | `~/.mcp.json` |
 
 Existing files are backed up to `*.backup` before linking.
+
+### Why not symlink ~/.bashrc
+
+Omarchy ships migrations under `~/.local/share/omarchy/migrations/` that
+mutate `~/.bashrc` in place via `sed -i` (e.g., to ensure the interactive
+guard line is present). If `~/.bashrc` were a symlink into this repo,
+those migrations would silently rewrite the tracked file. We keep
+`~/.bashrc` as Omarchy's plain file and append one source line that
+pulls in `linux/bashrc.local`.
 
 ## What is NOT symlinked (intentional)
 
@@ -35,14 +47,28 @@ the end if you want to override:
 
 ## Shell
 
-`linux/bashrc` sources Omarchy's default bash rc first, then adds
-personal aliases. Notable overrides vs Omarchy:
+`linux/bashrc.local` is sourced *after* Omarchy's defaults, so its
+aliases/functions only override when they intentionally redefine a name.
+Current additions:
 
-- `c` → `clear` (Omarchy aliases `c` to `opencode`; opencode still on PATH)
-- `cat` → `bat`
+- `ll` — `eza -lah --git --icons=auto` (matches Omarchy's icon styling)
+- `bcat` — `bat` (no `cat` alias; Omarchy's stance is to keep `cat`
+  as plain `cat` and use `bat` explicitly)
+- `lg` — `lazygit`
+- `myip` — first non-loopback IPv4
+- `gcom` / `gcob` / `gdb` / `gDb` / `gbnuke` — branch helpers,
+  default-branch-aware (work in `main`/`master`/`develop` repos via
+  `git rev-parse origin/HEAD`)
+- `devdir` / `pdevdir` — jump to `~/Documents/2-Areas/dev/{nodal,personal}`
+  (no `.nosync` suffix since iCloud isn't in play)
 
-`devdir` / `pdevdir` point at `~/Documents/2-Areas/dev/{nodal,personal}`
-(no `.nosync` suffix since iCloud isn't in play).
+Things deliberately *not* aliased here: `v` (use Omarchy's `n` function,
+which does `nvim .` with no args), `c` (Omarchy uses it for `opencode`;
+`Ctrl+L` clears the screen anyway), and `EDITOR` (already exported by
+`~/.config/uwsm/default`).
+
+Secrets / per-machine overrides go directly in `~/.bashrc` — that file
+is no longer symlinked, so private edits stay off git naturally.
 
 ## Packages
 

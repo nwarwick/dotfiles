@@ -49,10 +49,15 @@ To add/modify plugins, edit files in `.config/nvim/lua/plugins/`. LazyVim conven
 
 ## Linux / Omarchy notes
 
-- `linux/setup-linux.sh` only links safe configs (`.bashrc`, `.claude/`,
-  `.mcp.json`). It deliberately avoids overriding Omarchy's nvim, ghostty,
-  and starship configs — the script prints opt-in commands at the end.
-- `linux/bashrc` sources Omarchy's default rc first
-  (`~/.local/share/omarchy/default/bash/rc`), then layers personal aliases.
-- Most Brewfile packages are already in Omarchy; `linux/packages.txt` only
-  lists the gaps.
+- `linux/setup-linux.sh` (a) appends an idempotent `source` line to
+  `~/.bashrc` for `linux/bashrc.local`, and (b) symlinks `.claude/` +
+  `.mcp.json`. It deliberately avoids overriding Omarchy's nvim,
+  ghostty, and starship configs — the script prints opt-in commands at
+  the end.
+- `~/.bashrc` is intentionally **not** symlinked: Omarchy migrations
+  `sed -i` it in place. Personal additions live in `linux/bashrc.local`,
+  which `~/.bashrc` sources at the bottom.
+- `linux/bashrc.local` runs *after* Omarchy's bash defaults, so it
+  shouldn't re-source them or add an interactive-shell guard.
+- Most Brewfile packages are already in Omarchy; `linux/packages.txt`
+  only lists the gaps.

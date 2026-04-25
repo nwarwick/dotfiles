@@ -1,0 +1,41 @@
+# Sourced from ~/.bashrc after Omarchy's defaults.
+# Keep this file additive — overrides should be deliberate and noted.
+# (No interactive-shell guard or sourcing of Omarchy's rc here:
+# both are handled by ~/.bashrc itself.)
+
+# Listing — match Omarchy's icon styling for ls/lsa/lt
+alias ll="eza -lah --git --icons=auto"
+
+# bat without globally aliasing cat (Omarchy intentionally doesn't,
+# and `cat` -> `bat` surprises a few interactive cases)
+alias bcat="bat"
+
+# Tools
+alias lg="lazygit"
+
+# Network
+alias myip="ip -4 -o addr show scope global | awk '{print \$4}' | cut -d/ -f1"
+
+# Git — default-branch aware (works in main/master/develop repos)
+_default_branch() {
+    git rev-parse --abbrev-ref origin/HEAD 2>/dev/null | sed 's@^origin/@@' \
+        || echo main
+}
+gcom() { git checkout "$(_default_branch)"; }
+gcob() { git branch | fzf | xargs git checkout; }
+gdb()  { git branch | fzf | xargs git branch -d; }
+gDb()  { git branch | fzf | xargs git branch -D; }
+gbnuke() {
+    local default
+    default="$(_default_branch)"
+    git branch --merged "$default" --no-color \
+        | grep -vE "^\*|\s($default|master|stable)$" \
+        | xargs -r git branch -d
+}
+
+# PARA shortcuts
+alias devdir="cd ~/Documents/2-Areas/dev/nodal"
+alias pdevdir="cd ~/Documents/2-Areas/dev/personal"
+
+# Secrets/local overrides go directly in ~/.bashrc — it's no longer
+# symlinked, so personal additions there stay off git naturally.

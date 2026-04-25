@@ -49,8 +49,18 @@ backup_and_link() {
     echo "  Linked $dest -> $src"
 }
 
-print_step "Linking shell + Claude configs..."
-backup_and_link "$LINUX_DIR/bashrc"               "$HOME/.bashrc"
+print_step "Wiring bashrc.local into ~/.bashrc..."
+# Append-not-symlink: Omarchy migrations sed -i ~/.bashrc, so leave it
+# as a plain Omarchy-owned file and just append our source line idempotently.
+SOURCE_LINE='[[ -f ~/dotfiles/linux/bashrc.local ]] && source ~/dotfiles/linux/bashrc.local'
+if [[ -f "$HOME/.bashrc" ]] && ! grep -qF "$SOURCE_LINE" "$HOME/.bashrc"; then
+    printf '\n# Personal additions (managed in ~/dotfiles)\n%s\n' "$SOURCE_LINE" >> "$HOME/.bashrc"
+    echo "  Appended source line to ~/.bashrc"
+else
+    echo "  ~/.bashrc already sources bashrc.local (or no ~/.bashrc found)"
+fi
+
+print_step "Linking Claude + MCP configs..."
 backup_and_link "$DOTFILES_DIR/.claude/CLAUDE.md" "$HOME/.claude/CLAUDE.md"
 backup_and_link "$DOTFILES_DIR/.claude/settings.json" "$HOME/.claude/settings.json"
 backup_and_link "$DOTFILES_DIR/.claude/commands"  "$HOME/.claude/commands"
