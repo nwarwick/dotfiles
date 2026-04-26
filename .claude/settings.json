@@ -65,7 +65,7 @@
   },
   "statusLine": {
     "type": "command",
-    "command": "/bin/bash /Users/nicholaswarwick/.claude/statusline-starship.sh"
+    "command": "bash ~/.claude/statusline.sh"
   },
   "skipAutoPermissionPrompt": true,
   "editorMode": "vim"

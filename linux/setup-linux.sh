@@ -65,6 +65,7 @@ backup_and_link "$DOTFILES_DIR/.claude/CLAUDE.md" "$HOME/.claude/CLAUDE.md"
 backup_and_link "$DOTFILES_DIR/.claude/settings.json" "$HOME/.claude/settings.json"
 backup_and_link "$DOTFILES_DIR/.claude/commands"  "$HOME/.claude/commands"
 backup_and_link "$DOTFILES_DIR/.claude/agents"    "$HOME/.claude/agents"
+backup_and_link "$DOTFILES_DIR/.claude/statusline.sh" "$HOME/.claude/statusline.sh"
 backup_and_link "$DOTFILES_DIR/.mcp.json"         "$HOME/.mcp.json"
 
 # Trust mise config directory if mise is present
