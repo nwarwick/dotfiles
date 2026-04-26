@@ -92,6 +92,7 @@ backup_and_link "$DOTFILES_DIR/.config/aerospace" "$HOME/.config/aerospace"
 backup_and_link "$DOTFILES_DIR/.config/starship.toml" "$HOME/.config/starship.toml"
 backup_and_link "$DOTFILES_DIR/.claude/settings.json" "$HOME/.claude/settings.json"
 backup_and_link "$DOTFILES_DIR/.claude/CLAUDE.md" "$HOME/.claude/CLAUDE.md"
+backup_and_link "$DOTFILES_DIR/.claude/statusline-starship.sh" "$HOME/.claude/statusline-starship.sh"
 backup_and_link "$DOTFILES_DIR/.claude/commands" "$HOME/.claude/commands"
 backup_and_link "$DOTFILES_DIR/.claude/agents" "$HOME/.claude/agents"
 

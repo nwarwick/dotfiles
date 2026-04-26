@@ -75,6 +75,6 @@
   },
   "statusLine": {
     "type": "command",
-    "command": "/bin/bash /Users/nicholaswarwick/.claude/statusline-starship.sh"
+    "command": "/bin/bash $HOME/.claude/statusline-starship.sh"
   }
 }
