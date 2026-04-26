@@ -47,7 +47,8 @@
       "Read(~/Downloads/**)",
       "Read(~/.claude/**)"
     ],
-    "deny": []
+    "deny": [],
+    "defaultMode": "auto"
   },
   "hooks": {
     "Notification": [
@@ -65,5 +66,7 @@
   "statusLine": {
     "type": "command",
     "command": "/bin/bash /Users/nicholaswarwick/.claude/statusline-starship.sh"
-  }
+  },
+  "skipAutoPermissionPrompt": true,
+  "editorMode": "vim"
 }
