@@ -1,6 +1,6 @@
 ---
-description: Commit all changes and push to remote
-allowed-tools: Bash(git add:*), Bash(git status:*), Bash(git commit:*), Bash(git push:*)
+description: Commit, push, and open a PR
+allowed-tools: Bash(git checkout --branch:*), Bash(git add:*), Bash(git status:*), Bash(git push:*), Bash(git commit:*), Bash(gh pr create:*)
 ---
 
 ## Context
@@ -12,7 +12,12 @@ allowed-tools: Bash(git add:*), Bash(git status:*), Bash(git commit:*), Bash(git
 
 ## Your task
 
-Based on the above changes, create a single git commit and push to origin.
+Based on the above changes:
+
+1. Create a new branch if on main (match existing branch naming conventions)
+2. Create a single commit with an appropriate message
+3. Push the branch to origin
+4. Create a pull request using `gh pr create`
 
 ## Rules
 
@@ -22,4 +27,4 @@ Based on the above changes, create a single git commit and push to origin.
 - If there are no changes to commit, say so and stop
 - Only output text if there's an error or ambiguity requiring input
 
-Stage, commit, and push in a single message.
+You MUST do all of the above in a single message.

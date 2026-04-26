@@ -1,6 +1,6 @@
 ---
-description: Commit all changes and push to remote
-allowed-tools: Bash(git add:*), Bash(git status:*), Bash(git commit:*), Bash(git push:*)
+description: Create a git commit
+allowed-tools: Bash(git add:*), Bash(git status:*), Bash(git commit:*)
 ---
 
 ## Context
@@ -12,7 +12,7 @@ allowed-tools: Bash(git add:*), Bash(git status:*), Bash(git commit:*), Bash(git
 
 ## Your task
 
-Based on the above changes, create a single git commit and push to origin.
+Based on the above changes, create a single git commit.
 
 ## Rules
 
@@ -22,4 +22,4 @@ Based on the above changes, create a single git commit and push to origin.
 - If there are no changes to commit, say so and stop
 - Only output text if there's an error or ambiguity requiring input
 
-Stage, commit, and push in a single message.
+Stage all changes and create the commit in a single message.
