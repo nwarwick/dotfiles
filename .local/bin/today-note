@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# Open a daily note in $EDITOR, creating it with a title heading if missing.
+# Usage: today-note [DAY_OFFSET]   (default 0; -1 = yesterday, +1 = tomorrow)
+set -euo pipefail
+
+offset="${1:-0}"
+dir="$HOME/Documents/2-Areas/notes"
+fname="$(date -d "$offset days" +%A-%B-%-d-%Y | tr '[:upper:]' '[:lower:]').md"
+path="$dir/$fname"
+
+mkdir -p "$dir"
+if [[ ! -f "$path" ]]; then
+    printf '# %s\n\n' "$(date -d "$offset days" '+%A %B %-d, %Y')" > "$path"
+fi
+
+exec "${EDITOR:-nvim}" "$path"

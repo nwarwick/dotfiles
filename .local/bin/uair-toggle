@@ -1,0 +1,18 @@
+#!/bin/bash
+# Toggle the pomodoro:
+#   - daemon not running         → start it
+#   - daemon running and paused  → resume (e.g. start the queued break after a
+#                                  work session ended)
+#   - daemon running and ticking → kill it (ends the cycle, hides waybar)
+
+if pgrep -x uair >/dev/null 2>&1; then
+  if [ "$(uairctl fetch '{state}' 2>/dev/null)" = "⏸" ]; then
+    uairctl resume
+  else
+    pkill -x uair
+  fi
+else
+  setsid -f uair >/dev/null 2>&1
+  sleep 0.2
+  uairctl resume 2>/dev/null
+fi

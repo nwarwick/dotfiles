@@ -1,0 +1,3 @@
+#!/bin/bash
+# Stop the uair daemon (hides the waybar module).
+pkill -x uair

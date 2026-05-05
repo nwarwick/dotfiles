@@ -1,0 +1,17 @@
+#!/bin/sh
+# Askpass helper that fetches the sudo password from 1Password via the CLI.
+# Set OP_SUDO_REF to the secret reference (e.g. op://Personal/sudo/password).
+# Falls back to x11-ssh-askpass if 1Password lookup fails (locked, offline, etc.).
+
+ref="${OP_SUDO_REF:-op://Personal/sudo/password}"
+
+if op read "$ref" 2>/dev/null; then
+  exit 0
+fi
+
+if command -v /usr/lib/ssh/x11-ssh-askpass >/dev/null 2>&1; then
+  exec /usr/lib/ssh/x11-ssh-askpass "$@"
+fi
+
+echo "op-askpass: failed to retrieve password from 1Password ($ref)" >&2
+exit 1

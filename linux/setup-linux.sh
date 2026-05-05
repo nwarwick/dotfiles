@@ -105,6 +105,13 @@ backup_and_copy "$DOTFILES_DIR/.config/hypr/omambience.conf" "$HOME/.config/hypr
 backup_and_copy "$DOTFILES_DIR/.config/waybar/config.jsonc"  "$HOME/.config/waybar/config.jsonc"
 backup_and_copy "$DOTFILES_DIR/.config/waybar/style.css"     "$HOME/.config/waybar/style.css"
 
+print_step "Linking personal ~/.local/bin scripts..."
+mkdir -p "$HOME/.local/bin"
+for script in "$DOTFILES_DIR"/.local/bin/*; do
+    [[ -f "$script" ]] || continue
+    backup_and_link "$script" "$HOME/.local/bin/$(basename "$script")"
+done
+
 # Trust mise config directory if mise is present
 if command -v mise &>/dev/null; then
     print_step "Trusting mise config..."

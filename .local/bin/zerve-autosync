@@ -1,0 +1,24 @@
+#!/bin/bash
+# Auto-commit and push the Zerve KB.
+# - Exits silently if there are no changes.
+# - Commits with an ISO-8601 timestamp.
+# - Pushes if a remote is reachable; tolerates offline.
+
+set -u
+
+ZERVE_DIR=/home/nwarwick/Documents/2-Areas/zerve
+
+cd "$ZERVE_DIR" || exit 1
+
+# Bail if nothing has changed (working tree + index both clean).
+if git diff --quiet && git diff --cached --quiet; then
+  exit 0
+fi
+
+git add -A
+
+# Commit; if the add resulted in nothing new (e.g. only ignored files), exit cleanly.
+git commit -m "auto: $(date -Iseconds)" --quiet || exit 0
+
+# Push best-effort. If offline, the commit is preserved locally and pushed on next run.
+git push --quiet 2>/dev/null || true
