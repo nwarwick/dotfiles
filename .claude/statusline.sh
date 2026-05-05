@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Claude Code statusLine. Reads session JSON on stdin, prints one line.
-# Shows: model · cwd · git branch (+dirty) · ctx% · session cost.
+# Shows: model · cwd · git branch (+dirty) · ctx%.
 
 set -u
 
@@ -12,7 +12,6 @@ model="$(q '.model.display_name')"
 cwd="$(q '.workspace.current_dir')"
 [[ -z "$cwd" ]] && cwd="$(q '.cwd')"
 ctx_pct="$(q '.context_window.used_percentage')"
-cost_usd="$(q '.cost.total_cost_usd')"
 
 # Pretty cwd: replace $HOME with ~
 display_cwd="${cwd/#$HOME/\~}"
@@ -42,12 +41,6 @@ if [[ -n "$ctx_pct" ]]; then
     fi
 fi
 
-# Format cost
-cost=""
-if [[ -n "$cost_usd" ]]; then
-    cost="$(printf '$%.2f' "$cost_usd")"
-fi
-
 # Assemble — cyan accents to match the starship.toml palette
 sep=$'\e[90m│\e[0m'
 parts=()
@@ -55,7 +48,6 @@ parts=()
 [[ -n "$display_cwd" ]] && parts+=("$display_cwd")
 [[ -n "$branch"      ]] && parts+=($'\e[36m'"$branch"$'\e[0m')
 [[ -n "$ctx"         ]] && parts+=("$ctx")
-[[ -n "$cost"        ]] && parts+=($'\e[90m'"$cost"$'\e[0m')
 
 # Join with separator
 printf '%s' "${parts[0]:-}"

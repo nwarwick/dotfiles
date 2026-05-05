@@ -67,6 +67,18 @@
     "type": "command",
     "command": "bash ~/.claude/statusline.sh"
   },
-  "skipAutoPermissionPrompt": true,
-  "editorMode": "vim"
+  "enabledPlugins": {
+    "ruby-lsp@claude-plugins-official": true,
+    "opendesign@opendata-skills": true
+  },
+  "extraKnownMarketplaces": {
+    "opendata-skills": {
+      "source": {
+        "source": "github",
+        "repo": "tryopendata/skills"
+      }
+    }
+  },
+  "editorMode": "vim",
+  "skipAutoPermissionPrompt": true
 }
