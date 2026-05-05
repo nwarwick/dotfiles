@@ -6,11 +6,11 @@ that has the same Omarchy bash defaults at `~/.local/share/omarchy/`.
 
 ## What gets wired up
 
-`./setup-linux.sh` does two things:
+`./setup-linux.sh` does three things:
 
 1. Appends a single source line to `~/.bashrc` (idempotent) so Omarchy
    keeps owning that file. See "Why not symlink ~/.bashrc" below.
-2. Symlinks the Claude/MCP configs that don't conflict with Omarchy:
+2. **Symlinks** files we own (edits flow through git on either machine):
 
 | Source | Target |
 |---|---|
@@ -19,9 +19,27 @@ that has the same Omarchy bash defaults at `~/.local/share/omarchy/`.
 | `.claude/settings.json` | `~/.claude/settings.json` |
 | `.claude/commands` | `~/.claude/commands` |
 | `.claude/agents` | `~/.claude/agents` |
+| `.claude/statusline.sh` | `~/.claude/statusline.sh` |
 | `.mcp.json` | `~/.mcp.json` |
+| `.config/hypr/bindings.conf` | `~/.config/hypr/bindings.conf` |
+| `.config/hypr/hyprland.conf` | `~/.config/hypr/hyprland.conf` |
+| `.config/hypr/hypridle.conf` | `~/.config/hypr/hypridle.conf` |
+| `.config/alacritty/alacritty.toml` | `~/.config/alacritty/alacritty.toml` |
 
-Existing files are backed up to `*.backup` before linking.
+3. **Copies** (not symlinks) theme-influenced files. Omarchy's theme
+   switcher rewrites these, and we don't want those edits flowing back
+   into git. Treat the dotfiles versions as a starting point:
+
+| Source | Target |
+|---|---|
+| `.config/hypr/looknfeel.conf` | `~/.config/hypr/looknfeel.conf` |
+| `.config/hypr/omambience.conf` | `~/.config/hypr/omambience.conf` |
+| `.config/waybar/config.jsonc` | `~/.config/waybar/config.jsonc` |
+| `.config/waybar/style.css` | `~/.config/waybar/style.css` |
+
+Existing files are backed up to `*.backup` before linking or copying.
+
+`monitors.conf` is intentionally **not** tracked — it's per-machine.
 
 ### Why not symlink ~/.bashrc
 

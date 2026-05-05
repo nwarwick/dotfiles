@@ -49,6 +49,26 @@ backup_and_link() {
     echo "  Linked $dest -> $src"
 }
 
+# Copy with backup. Use for files Omarchy may rewrite (themes, etc.) where
+# we want our customizations as a starting point but don't want symlink
+# noise in git when Omarchy edits them.
+backup_and_copy() {
+    local src="$1"
+    local dest="$2"
+
+    if [[ -e "$dest" && ! -L "$dest" ]]; then
+        print_warning "Backing up existing $dest -> $dest.backup"
+        mv "$dest" "$dest.backup"
+    fi
+
+    if [[ -L "$dest" ]]; then
+        rm "$dest"
+    fi
+
+    cp "$src" "$dest"
+    echo "  Copied $dest <- $src"
+}
+
 print_step "Wiring bashrc.local into ~/.bashrc..."
 # Append-not-symlink: Omarchy migrations sed -i ~/.bashrc, so leave it
 # as a plain Omarchy-owned file and just append our source line idempotently.
@@ -67,6 +87,23 @@ backup_and_link "$DOTFILES_DIR/.claude/commands"  "$HOME/.claude/commands"
 backup_and_link "$DOTFILES_DIR/.claude/agents"    "$HOME/.claude/agents"
 backup_and_link "$DOTFILES_DIR/.claude/statusline.sh" "$HOME/.claude/statusline.sh"
 backup_and_link "$DOTFILES_DIR/.mcp.json"         "$HOME/.mcp.json"
+
+print_step "Linking user-owned Hyprland + Alacritty configs..."
+mkdir -p "$HOME/.config/hypr" "$HOME/.config/alacritty"
+backup_and_link "$DOTFILES_DIR/.config/hypr/bindings.conf" "$HOME/.config/hypr/bindings.conf"
+backup_and_link "$DOTFILES_DIR/.config/hypr/hyprland.conf" "$HOME/.config/hypr/hyprland.conf"
+backup_and_link "$DOTFILES_DIR/.config/hypr/hypridle.conf" "$HOME/.config/hypr/hypridle.conf"
+backup_and_link "$DOTFILES_DIR/.config/alacritty/alacritty.toml" "$HOME/.config/alacritty/alacritty.toml"
+
+# Theme-influenced files: copy as a starting point, don't symlink. Omarchy's
+# theme switcher rewrites these, and we don't want those edits flowing back
+# into git. Per-machine monitors.conf is intentionally excluded.
+print_step "Seeding theme-adjacent configs (one-time copy)..."
+mkdir -p "$HOME/.config/waybar"
+backup_and_copy "$DOTFILES_DIR/.config/hypr/looknfeel.conf"  "$HOME/.config/hypr/looknfeel.conf"
+backup_and_copy "$DOTFILES_DIR/.config/hypr/omambience.conf" "$HOME/.config/hypr/omambience.conf"
+backup_and_copy "$DOTFILES_DIR/.config/waybar/config.jsonc"  "$HOME/.config/waybar/config.jsonc"
+backup_and_copy "$DOTFILES_DIR/.config/waybar/style.css"     "$HOME/.config/waybar/style.css"
 
 # Trust mise config directory if mise is present
 if command -v mise &>/dev/null; then
