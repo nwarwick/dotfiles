@@ -1,26 +1,35 @@
 # Dotfiles
 
-Personal dotfiles for macOS development environment.
+Personal dotfiles. Primary target is macOS; Omarchy (Arch + Hyprland) is
+supported as a secondary target for the cross-platform configs.
 
 ## Quick Start
 
 ```bash
 git clone <repo-url> ~/dotfiles
 cd ~/dotfiles
-./setup.sh
+./setup-macos.sh         # macOS
+./linux/setup-linux.sh   # Omarchy / Arch
 ```
 
-The setup script will install all dependencies and create symlinks automatically.
+The setup script will install dependencies and create symlinks automatically.
+See [`linux/README.md`](linux/README.md) for what the Linux variant does and
+doesn't symlink (Omarchy ships its own nvim/ghostty/starship configs).
 
 ## What's Included
 
-| Config | Description |
-|--------|-------------|
-| `.zshrc` | Zsh with Oh My Zsh, Starship prompt, and custom aliases |
-| `.config/nvim/` | Neovim with LazyVim |
-| `.config/ghostty/` | Ghostty terminal |
-| `.config/aerospace/` | AeroSpace tiling window manager |
-| `.claude/` | Claude Code settings and global instructions |
+| Config | Description | Platform |
+|--------|-------------|----------|
+| `.zshrc` | Zsh with Oh My Zsh, Starship prompt, and custom aliases | macOS |
+| `.config/nvim/` | Neovim with LazyVim | both |
+| `.config/ghostty/` | Ghostty terminal | both |
+| `.config/aerospace/` | AeroSpace tiling window manager | macOS |
+| `.config/starship.toml` | Starship prompt overrides | both |
+| `.claude/` | Claude Code settings and global instructions | both |
+| `.mcp.json` | MCP server config (`fetch`) | both |
+| `linux/bashrc` | Bash config that layers on Omarchy's defaults | Linux |
+| `Brewfile` | macOS package list | macOS |
+| `linux/packages.txt` | pacman package list (extras beyond Omarchy) | Linux |
 
 ## Manual Installation
 

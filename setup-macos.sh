@@ -95,6 +95,7 @@ backup_and_link "$DOTFILES_DIR/.claude/CLAUDE.md" "$HOME/.claude/CLAUDE.md"
 backup_and_link "$DOTFILES_DIR/.claude/statusline-starship.sh" "$HOME/.claude/statusline-starship.sh"
 backup_and_link "$DOTFILES_DIR/.claude/commands" "$HOME/.claude/commands"
 backup_and_link "$DOTFILES_DIR/.claude/agents" "$HOME/.claude/agents"
+backup_and_link "$DOTFILES_DIR/.claude/statusline.sh" "$HOME/.claude/statusline.sh"
 
 # Setup fzf key bindings
 print_step "Setting up fzf..."

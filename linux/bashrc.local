@@ -1,0 +1,80 @@
+# Sourced from ~/.bashrc after Omarchy's defaults.
+# Keep this file additive — overrides should be deliberate and noted.
+# (No interactive-shell guard or sourcing of Omarchy's rc here:
+# both are handled by ~/.bashrc itself.)
+
+# Listing — match Omarchy's icon styling for ls/lsa/lt
+alias ll="eza -lah --git --icons=auto"
+
+# bat without globally aliasing cat (Omarchy intentionally doesn't,
+# and `cat` -> `bat` surprises a few interactive cases)
+alias bcat="bat"
+
+# Tools
+alias lg="lazygit"
+
+# Override Omarchy's `c` (opencode) — prefer Claude Code
+alias c="claude"
+
+# Network
+alias myip="ip -4 -o addr show scope global | awk '{print \$4}' | cut -d/ -f1"
+
+# System
+alias bios="systemctl reboot --firmware-setup"
+
+# Git — default-branch aware (works in main/master/develop repos)
+_default_branch() {
+    git rev-parse --abbrev-ref origin/HEAD 2>/dev/null | sed 's@^origin/@@' \
+        || echo main
+}
+gcom() { git checkout "$(_default_branch)"; }
+gcob() { git branch | fzf | xargs git checkout; }
+gdb()  { git branch | fzf | xargs git branch -d; }
+gDb()  { git branch | fzf | xargs git branch -D; }
+gbnuke() {
+    local default
+    default="$(_default_branch)"
+    git branch --merged "$default" --no-color \
+        | grep -vE "^\*|\s($default|master|stable)$" \
+        | xargs -r git branch -d
+}
+
+# PARA shortcuts
+alias devdir="cd ~/Documents/2-Areas/dev/nodal"
+alias pdevdir="cd ~/Documents/2-Areas/dev/personal"
+alias notesdir="cd ~/Documents/2-Areas/notes"
+
+# Daily notes (script lives at ~/.local/bin/today-note, also wired to
+# SUPER SHIFT+O via Hyprland — both entry points share one source)
+alias today="today-note"
+alias yesterday="today-note -1"
+alias tomorrow="today-note +1"
+alias notes="cd ~/Documents/2-Areas/notes"
+
+# Fuzzy-pick a note by filename
+notesf() {
+    local f
+    f=$(find "$HOME/Documents/2-Areas/notes" -maxdepth 2 -name '*.md' \
+        | fzf --preview 'bat --color=always --style=plain {}') || return
+    "${EDITOR:-nvim}" "$f"
+}
+
+# Fuzzy-pick a line by content (ripgrep -> fzf, jumps to line)
+notesg() {
+    local result file line
+    result=$(rg --line-number --no-heading --color=never \
+        --glob '*.md' . "$HOME/Documents/2-Areas/notes" \
+        | fzf --delimiter ':' \
+              --preview 'bat --color=always --style=plain --highlight-line={2} {1}' \
+              --preview-window 'right:60%:+{2}-5') || return
+    file="${result%%:*}"
+    line=$(echo "$result" | cut -d: -f2)
+    "${EDITOR:-nvim}" +"$line" "$file"
+}
+
+# Use 1Password's SSH agent. openssh honors IdentityAgent in ~/.ssh/config,
+# but Net-SSH (used by kamal/sshkit) only respects SSH_AUTH_SOCK.
+[[ -S "$HOME/.1password/agent.sock" ]] && export SSH_AUTH_SOCK="$HOME/.1password/agent.sock"
+
+# Secrets/local overrides go directly in ~/.bashrc — it's no longer
+# symlinked, so personal additions there stay off git naturally.
