@@ -57,7 +57,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "(afplay /System/Library/Sounds/Glass.aiff &) ; MSG=$(jq -r '.message // \"Needs your input\"'); terminal-notifier -title \"Claude Code\" -message \"$MSG\" -group claude-code -sender com.mitchellh.ghostty"
+            "command": "MSG=$(jq -r '.message // \"Needs your input\"'); case \"$(uname)\" in Darwin) terminal-notifier -title \"Claude Code\" -message \"$MSG\" -group claude-code -sender com.mitchellh.ghostty ;; Linux) notify-send -a \"Claude Code\" \"Claude Code\" \"$MSG\" ;; esac"
           }
         ]
       }
@@ -68,7 +68,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "(afplay /System/Library/Sounds/Hero.aiff &) ; terminal-notifier -title \"Claude Code\" -message \"Turn complete\" -group claude-code -sender com.mitchellh.ghostty"
+            "command": "case \"$(uname)\" in Darwin) terminal-notifier -title \"Claude Code\" -message \"Turn complete\" -group claude-code -sender com.mitchellh.ghostty ;; Linux) notify-send -a \"Claude Code\" \"Claude Code\" \"Turn complete\" ;; esac"
           }
         ]
       }
