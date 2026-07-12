@@ -38,43 +38,74 @@
       "Bash(git commit:*)",
       "Bash(git checkout:*)",
       "Bash(git mv:*)",
+      "Bash(git rm:*)",
+      "Bash(git status:*)",
+      "Bash(git stash:*)",
+      "Bash(git stash pop:*)",
+      "Bash(git push:*)",
+      "Bash(git pull:*)",
+      "Bash(git fetch:*)",
+      "Bash(git merge:*)",
       "Bash(git ls-tree:*)",
+      "Bash(git log:*)",
+      "Bash(git diff:*)",
+      "Bash(gh pr:*)",
       "Bash(gh pr diff:*)",
+      "Bash(gh api:*)",
+      "Bash(gh repo view:*)",
+      "Bash(gh search:*)",
       "Bash(ruby -c:*)",
       "Bash(ruby:*)",
       "Bash(bundle exec ruby:*)",
+      "Bash(bundle update:*)",
+      "Bash(bundle install:*)",
+      "Bash(npm update:*)",
+      "Bash(node -e:*)",
+      "Bash(bin/rails:*)",
+      "Bash(bin/rails routes:*)",
+      "Bash(bin/rails db:seed:*)",
+      "Bash(RAILS_ENV=test bin/rails:*)",
+      "Bash(RUN_EVALS=true bin/rails test:*)",
+      "Bash(heroku logs:*)",
+      "Bash(heroku run:*)",
+      "Bash(heroku releases:*)",
+      "Bash(heroku pg:pull:*)",
+      "Bash(psql:*)",
+      "Bash(aws s3api:*)",
+      "Bash(aws sts:*)",
+      "Bash(aws rds:*)",
+      "Bash(aws ec2:*)",
+      "Bash(aws iam:*)",
+      "Skill(commit-push)",
       "Read(~/Documents/**)",
       "Read(~/Downloads/**)",
       "Read(~/.claude/**)"
     ],
-    "deny": []
-  },
-  "hooks": {
-    "Notification": [
-      {
-        "matcher": "",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "(afplay /System/Library/Sounds/Glass.aiff &) ; MSG=$(jq -r '.message // \"Needs your input\"'); terminal-notifier -title \"Claude Code\" -message \"$MSG\" -group claude-code -sender com.mitchellh.ghostty"
-          }
-        ]
-      }
-    ],
-    "Stop": [
-      {
-        "matcher": "",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "(afplay /System/Library/Sounds/Hero.aiff &) ; terminal-notifier -title \"Claude Code\" -message \"Turn complete\" -group claude-code -sender com.mitchellh.ghostty"
-          }
-        ]
-      }
-    ]
+    "deny": [],
+    "defaultMode": "auto"
   },
   "statusLine": {
     "type": "command",
     "command": "/bin/bash $HOME/.claude/statusline-starship.sh"
-  }
+  },
+  "enabledPlugins": {
+    "frontend-design@claude-plugins-official": true,
+    "playwright@claude-plugins-official": true,
+    "claude-md-management@claude-plugins-official": true,
+    "ruby-lsp@claude-plugins-official": true,
+    "claude-code-setup@claude-plugins-official": true
+  },
+  "extraKnownMarketplaces": {
+    "nodal-claude": {
+      "source": {
+        "source": "github",
+        "repo": "NodalNetworks/nodal-claude"
+      }
+    }
+  },
+  "effortLevel": "high",
+  "editorMode": "vim",
+  "skipAutoPermissionPrompt": true,
+  "voiceEnabled": true,
+  "model": "claude-fable-5[1m]"
 }

@@ -1,6 +1,6 @@
-# CLAUDE.md
+# AGENTS.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to Codex (Codex.ai/code) when working with code in this repository.
 
 ## Repository Overview
 
@@ -20,7 +20,7 @@ source ~/.zshrc      # Reload shell after setup
 | `.zshrc` | Zsh config with Oh My Zsh, Starship prompt, and aliases |
 | `.config/nvim/` | LazyVim-based Neovim configuration |
 | `.config/ghostty/` | Ghostty terminal config |
-| `.claude/` | Claude Code settings (symlinked to `~/.claude/`) |
+| `.Codex/` | Codex settings (symlinked to `~/.Codex/`) |
 | `setup.sh` | Automated installation script |
 
 ## Neovim Configuration

@@ -19,7 +19,6 @@ The setup script will install all dependencies and create symlinks automatically
 | `.zshrc` | Zsh with Oh My Zsh, Starship prompt, and custom aliases |
 | `.config/nvim/` | Neovim with LazyVim |
 | `.config/ghostty/` | Ghostty terminal |
-| `.config/aerospace/` | AeroSpace tiling window manager |
 | `.claude/` | Claude Code settings and global instructions |
 
 ## Manual Installation
@@ -51,7 +50,6 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 ln -sf ~/dotfiles/.zshrc ~/.zshrc
 ln -sf ~/dotfiles/.config/nvim ~/.config/nvim
 ln -sf ~/dotfiles/.config/ghostty ~/.config/ghostty
-ln -sf ~/dotfiles/.config/aerospace ~/.config/aerospace
 ln -sf ~/dotfiles/.claude/settings.json ~/.claude/settings.json
 ln -sf ~/dotfiles/.claude/CLAUDE.md ~/.claude/CLAUDE.md
 ```
@@ -77,6 +75,7 @@ Wait for plugins to install, then run `:checkhealth` to verify everything is wor
 | Alias | Command |
 |-------|---------|
 | `v` | `nvim` |
+| `n` | `nvim` |
 | `ll` | `ls -FGlAhp` |
 | `gcob` | Interactive branch checkout with fzf |
 | `gcom` | `git checkout main` |
@@ -102,15 +101,6 @@ Built on [LazyVim](https://www.lazyvim.org/) with these extras enabled:
 
 - **Font**: JetBrainsMono Nerd Font, 14pt
 - **Shell integration**: zsh
-
-## AeroSpace
-
-Tiling window manager for macOS. Key bindings use Alt as the main modifier.
-
-- **Workspaces**: 1-9 bound to Alt+number
-- **Focus**: Alt+H/J/K/L for vim-style navigation
-- **Move windows**: Alt+Shift+H/J/K/L
-- **Layouts**: Alt+/ for tiles, Alt+, for accordion
 
 ## Claude Code
 

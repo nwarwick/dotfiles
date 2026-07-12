@@ -25,9 +25,6 @@ export PATH="$HOME/.local/bin:$PATH"
 ## Postgres
 export PATH="/opt/homebrew/opt/postgresql@16/bin:$PATH"
 
-# Initialize mise
-eval "$(mise activate zsh)"
-
 ## Default text editor
 export EDITOR=nvim
 
@@ -35,13 +32,17 @@ export EDITOR=nvim
 ## Libpq
 export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
 
+# Initialize mise after PATH setup
+eval "$(mise activate zsh)"
+
 # Aliases
 alias v="nvim"
+alias n="nvim"
 alias cat="bat"
 alias ls="eza"
 alias ll="eza -lah --git"
 alias folder="open -a Finder ./" # Opens current directory in MacOS Finder
-alias c="clear"
+alias c="claude"
 alias myip="ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1'"
 
 ## Git (lots of pre-existing aliases via oh-my-zsh)
@@ -62,4 +63,3 @@ source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zs
 
 # For secrets that we do not want to commit to Git
 [[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
-

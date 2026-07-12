@@ -20,5 +20,4 @@ brew "libpq"
 
 # Applications
 cask "ghostty"
-cask "aerospace"
 cask "font-jetbrains-mono-nerd-font"
