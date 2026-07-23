@@ -21,6 +21,8 @@ doesn't symlink (Omarchy ships its own nvim/ghostty/starship configs).
 | Config | Description | Platform |
 |--------|-------------|----------|
 | `.zshrc` | Zsh with Oh My Zsh, Starship prompt, and custom aliases | macOS |
+| `.gitconfig` | Portable Git defaults; loads identity and credential helpers from `~/.gitconfig.local` | both |
+| `.gitconfig.local.example` | Template for machine-local Git identity and credential helpers | both |
 | `.config/nvim/` | Neovim with LazyVim | both |
 | `.config/ghostty/` | Ghostty terminal | both |
 | `.config/aerospace/` | AeroSpace tiling window manager | macOS |
@@ -30,6 +32,23 @@ doesn't symlink (Omarchy ships its own nvim/ghostty/starship configs).
 | `linux/bashrc` | Bash config that layers on Omarchy's defaults | Linux |
 | `Brewfile` | macOS package list | macOS |
 | `linux/packages.txt` | pacman package list (extras beyond Omarchy) | Linux |
+
+## Git Configuration
+
+The committed `.gitconfig` contains only portable settings. Git identity,
+credential helpers, and other machine-specific values belong in
+`~/.gitconfig.local`, which is included automatically.
+
+```bash
+ln -sf ~/dotfiles/.gitconfig ~/.gitconfig
+cp ~/dotfiles/.gitconfig.local.example ~/.gitconfig.local
+$EDITOR ~/.gitconfig.local
+```
+
+Do not commit `~/.gitconfig.local`, `.git-credentials`, access tokens,
+passwords, or other credential-store files. Credential-helper commands are
+safe to configure locally because the credentials themselves remain in the
+helper's secure storage.
 
 ## Manual Installation
 

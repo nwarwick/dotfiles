@@ -1,0 +1,13 @@
+# Copy this file to ~/.gitconfig.local and replace these values.
+# Keep ~/.gitconfig.local out of version control.
+
+[user]
+	name = Your Name
+	email = you@example.com
+
+# Optional: service-specific credential helpers belong in the local file.
+# This example asks the locally installed Heroku CLI for credentials; it does
+# not contain a credential itself.
+#
+# [credential "https://git.heroku.com"]
+# 	helper = !heroku git:credentials
