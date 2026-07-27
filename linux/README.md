@@ -24,6 +24,8 @@ is self-contained and does not depend on files from `mac/`.
 | `.claude/agents` | `~/.claude/agents` |
 | `.claude/statusline.sh` | `~/.claude/statusline.sh` |
 | `.mcp.json` | `~/.mcp.json` |
+| `.config/opencode/opencode.jsonc` | `~/.config/opencode/opencode.jsonc` |
+| `.config/opencode/tui.json` | `~/.config/opencode/tui.json` |
 | `.config/hypr/bindings.conf` | `~/.config/hypr/bindings.conf` |
 | `.config/hypr/hyprland.conf` | `~/.config/hypr/hyprland.conf` |
 | `.config/hypr/hypridle.conf` | `~/.config/hypr/hypridle.conf` |
@@ -41,6 +43,9 @@ is self-contained and does not depend on files from `mac/`.
 | `.config/waybar/style.css` | `~/.config/waybar/style.css` |
 
 Existing files are backed up to `*.backup` before linking or copying.
+
+OpenCode's generated dependencies, state, and authentication files remain
+machine-local; only its portable plugin configuration is symlinked.
 
 `monitors.conf` is intentionally **not** tracked — it's per-machine.
 

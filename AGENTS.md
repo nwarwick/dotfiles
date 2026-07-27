@@ -19,7 +19,7 @@ must continue to work using only files beneath its own directory.
 
 | Path | Purpose |
 |---|---|
-| `mac/` | Plain Zsh, tmux, Git, mise, LazyVim, and Homebrew baseline |
+| `mac/` | Plain Zsh, tmux, Git, mise, LazyVim, OpenCode, and Homebrew baseline |
 | `linux/` | Preserved Omarchy shell, desktop, agent, and optional app configs |
 | `mac/setup-macos.sh` | macOS installer |
 | `linux/setup-linux.sh` | Linux installer |
