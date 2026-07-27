@@ -16,6 +16,16 @@ alias lg="lazygit"
 # Override Omarchy's `c` (opencode) — prefer Claude Code
 alias c="claude"
 
+# Vim-style command-line editing, matching the macOS Zsh behavior.
+# Escape switches to command mode; i/a return to insert mode.
+set -o vi
+bind 'set keyseq-timeout 100'
+
+# Use a bar cursor in insert mode and a block cursor in command mode.
+bind 'set show-mode-in-prompt on'
+bind 'set vi-ins-mode-string \1\e[6 q\2'
+bind 'set vi-cmd-mode-string \1\e[2 q\2'
+
 # Network
 alias myip="ip -4 -o addr show scope global | awk '{print \$4}' | cut -d/ -f1"
 

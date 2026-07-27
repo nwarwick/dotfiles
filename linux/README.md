@@ -11,8 +11,9 @@ is self-contained and does not depend on files from `mac/`.
 
 `./setup-linux.sh` does three things:
 
-1. Appends a single source line to `~/.bashrc` (idempotent) so Omarchy
-   keeps owning that file. See "Why not symlink ~/.bashrc" below.
+1. Appends source lines to Omarchy-owned Bash and tmux configs (idempotent),
+   so Omarchy can keep migrating those files. See "Why sourced extensions"
+   below.
 2. **Symlinks** files we own (edits flow through git on either machine):
 
 | Source | Target |
@@ -30,6 +31,8 @@ is self-contained and does not depend on files from `mac/`.
 | `.config/hypr/hyprland.conf` | `~/.config/hypr/hyprland.conf` |
 | `.config/hypr/hypridle.conf` | `~/.config/hypr/hypridle.conf` |
 | `.config/alacritty/alacritty.toml` | `~/.config/alacritty/alacritty.toml` |
+| `.config/tmux/tmux.conf.local` | `~/.config/tmux/tmux.conf.local` |
+| `.config/nvim/lua/plugins/tmux-navigator.lua` | `~/.config/nvim/lua/plugins/tmux-navigator.lua` |
 
 3. **Copies** (not symlinks) theme-influenced files. Omarchy's theme
    switcher rewrites these, and we don't want those edits flowing back
@@ -49,14 +52,19 @@ machine-local; only its portable plugin configuration is symlinked.
 
 `monitors.conf` is intentionally **not** tracked — it's per-machine.
 
-### Why not symlink ~/.bashrc
+The setup also installs a pinned `vim-tmux-navigator` checkout beneath
+`~/.config/tmux/plugins/`. Together with the Neovim plugin spec, this enables
+seamless `Ctrl+H/J/K/L` navigation between Neovim splits and tmux panes.
+
+### Why sourced extensions
 
 Omarchy ships migrations under `~/.local/share/omarchy/migrations/` that
 mutate `~/.bashrc` in place via `sed -i` (e.g., to ensure the interactive
 guard line is present). If `~/.bashrc` were a symlink into this repo,
 those migrations would silently rewrite the tracked file. We keep
-`~/.bashrc` as Omarchy's plain file and append one source line that
-pulls in `linux/bashrc.local`.
+`~/.bashrc` as Omarchy's plain file and append one source line that pulls in
+`linux/bashrc.local`. Omarchy also migrates `~/.config/tmux/tmux.conf`, so it
+stays plain and sources the tracked `tmux.conf.local` extension.
 
 ## What is NOT symlinked (intentional)
 
@@ -64,8 +72,9 @@ Omarchy ships its own opinionated configs for these — replacing them
 will lose Omarchy's tuning. The setup script prints opt-in commands at
 the end if you want to override:
 
-- `.config/nvim` — Omarchy's LazyVim with `neo-tree`. The dotfiles
-  version adds TypeScript / JSON / Ruby / Prettier / ESLint extras.
+- `.config/nvim` — Omarchy's LazyVim with `neo-tree`. Only the tmux navigator
+  plugin spec is linked individually. The complete dotfiles version adds
+  TypeScript / JSON / Ruby / Prettier / ESLint extras and remains opt-in.
 - `.config/ghostty` — Omarchy's config wires in theme switching,
   Hyprland fixes, and SSH integration. The dotfiles version is minimal.
 - `.config/starship.toml` — Omarchy's prompt is fully styled. The

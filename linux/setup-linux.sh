@@ -69,15 +69,63 @@ backup_and_copy() {
     echo "  Copied $dest <- $src"
 }
 
+install_tmux_plugin() {
+    local repo="$1"
+    local revision="$2"
+    local dest="$3"
+
+    if [[ -d "$dest/.git" ]]; then
+        echo "  tmux plugin already installed: $dest"
+        return
+    fi
+
+    git clone --quiet "$repo" "$dest"
+    git -C "$dest" checkout --quiet "$revision"
+    echo "  Installed tmux plugin: $dest"
+}
+
 print_step "Wiring bashrc.local into ~/.bashrc..."
 # Append-not-symlink: Omarchy migrations sed -i ~/.bashrc, so leave it
 # as a plain Omarchy-owned file and just append our source line idempotently.
-SOURCE_LINE='[[ -f ~/dotfiles/linux/bashrc.local ]] && source ~/dotfiles/linux/bashrc.local'
-if [[ -f "$HOME/.bashrc" ]] && ! grep -qF "$SOURCE_LINE" "$HOME/.bashrc"; then
-    printf '\n# Personal additions (managed in ~/dotfiles)\n%s\n' "$SOURCE_LINE" >> "$HOME/.bashrc"
+BASHRC_SOURCE_LINE="[[ -f \"$LINUX_DIR/bashrc.local\" ]] && source \"$LINUX_DIR/bashrc.local\""
+LEGACY_BASHRC_SOURCE_LINE='[[ -f ~/dotfiles/linux/bashrc.local ]] && source ~/dotfiles/linux/bashrc.local'
+if [[ -f "$HOME/.bashrc" ]] && grep -qF "$LEGACY_BASHRC_SOURCE_LINE" "$HOME/.bashrc"; then
+    legacy_line_number="$(grep -nF "$LEGACY_BASHRC_SOURCE_LINE" "$HOME/.bashrc" | head -n 1 | cut -d: -f1)"
+    sed -i "${legacy_line_number}c\\$BASHRC_SOURCE_LINE" "$HOME/.bashrc"
+    echo "  Updated ~/.bashrc to source this checkout's bashrc.local"
+elif [[ -f "$HOME/.bashrc" ]] && ! grep -qF "$BASHRC_SOURCE_LINE" "$HOME/.bashrc"; then
+    printf '\n# Personal additions (managed in the dotfiles repo)\n%s\n' \
+        "$BASHRC_SOURCE_LINE" >> "$HOME/.bashrc"
     echo "  Appended source line to ~/.bashrc"
 else
     echo "  ~/.bashrc already sources bashrc.local (or no ~/.bashrc found)"
+fi
+
+print_step "Installing tmux pane navigator..."
+mkdir -p "$HOME/.config/tmux/plugins"
+install_tmux_plugin \
+    "https://github.com/christoomey/vim-tmux-navigator.git" \
+    "e41c431a0c7b7388ae7ba341f01a0d217eb3a432" \
+    "$HOME/.config/tmux/plugins/vim-tmux-navigator"
+
+print_step "Linking tmux + Neovim pane navigation..."
+mkdir -p "$HOME/.config/tmux" "$HOME/.config/nvim/lua/plugins"
+backup_and_link \
+    "$LINUX_DIR/.config/tmux/tmux.conf.local" \
+    "$HOME/.config/tmux/tmux.conf.local"
+backup_and_link \
+    "$LINUX_DIR/.config/nvim/lua/plugins/tmux-navigator.lua" \
+    "$HOME/.config/nvim/lua/plugins/tmux-navigator.lua"
+
+# Keep Omarchy's main tmux config as a plain file so its migrations can edit it.
+TMUX_SOURCE_LINE='source-file ~/.config/tmux/tmux.conf.local'
+touch "$HOME/.config/tmux/tmux.conf"
+if ! grep -qF "$TMUX_SOURCE_LINE" "$HOME/.config/tmux/tmux.conf"; then
+    printf '\n# Personal additions (managed in the dotfiles repo)\n%s\n' \
+        "$TMUX_SOURCE_LINE" >> "$HOME/.config/tmux/tmux.conf"
+    echo "  Updated ~/.config/tmux/tmux.conf"
+else
+    echo "  ~/.config/tmux/tmux.conf already sources tmux.conf.local"
 fi
 
 print_step "Linking Claude + MCP configs..."
