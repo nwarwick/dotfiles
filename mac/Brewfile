@@ -1,0 +1,29 @@
+tap "anomalyco/tap"
+tap "heroku/brew"
+
+# Command-line tools
+brew "anomalyco/tap/opencode"
+brew "awscli"
+brew "eza"
+brew "fzf"
+brew "gh"
+brew "gitmux"
+brew "heroku/brew/heroku"
+brew "lazygit"
+brew "libyaml"
+brew "macmon"
+brew "mise"
+brew "neovim"
+brew "pgvector"
+brew "postgresql@17", restart_service: true
+brew "ripgrep"
+brew "tmux"
+brew "vips"
+brew "zsh-autosuggestions"
+
+# Applications
+cask "1password-cli"
+cask "codex"
+cask "maccy"
+cask "obsidian"
+cask "tailscale-app"

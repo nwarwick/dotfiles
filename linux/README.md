@@ -4,6 +4,9 @@ Linux-side complement to the macOS dotfiles. Targets [Omarchy](https://omarchy.o
 (Arch + Hyprland), but the bashrc/setup script work on any Arch-based distro
 that has the same Omarchy bash defaults at `~/.local/share/omarchy/`.
 
+All source paths below are relative to the `linux/` directory. The Linux tree
+is self-contained and does not depend on files from `mac/`.
+
 ## What gets wired up
 
 `./setup-linux.sh` does three things:

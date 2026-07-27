@@ -1,63 +1,53 @@
 # AGENTS.md
 
-This file provides guidance to Codex (Codex.ai/code) when working with code in this repository.
+This file provides guidance to Codex when working in this repository.
 
-## Repository Overview
+## Repository overview
 
-Personal dotfiles. Primary target is macOS; Omarchy (Arch + Hyprland) is
-a secondary target for the cross-platform configs. Files are symlinked to
-`~/.config/` and `~/` during setup.
+Personal dotfiles with fully isolated macOS and Omarchy / Arch Linux trees.
+Do not introduce dependencies between `mac/` and `linux/`; a platform setup
+must continue to work using only files beneath its own directory.
 
 ## Setup
 
 ```bash
-./setup-macos.sh         # macOS: Homebrew, packages, symlinks
-./linux/setup-linux.sh   # Omarchy/Arch: pacman extras + safe symlinks only
+./mac/setup-macos.sh     # macOS: Homebrew, packages, symlinks, tmux plugins
+./linux/setup-linux.sh   # Omarchy/Arch: pacman extras + safe symlinks/copies
 ```
 
 ## Structure
 
 | Path | Purpose |
-|------|---------|
-| `.zshrc` | Zsh config (macOS) with Oh My Zsh, Starship, aliases |
-| `.config/nvim/` | LazyVim-based Neovim configuration |
-| `.config/ghostty/` | Ghostty terminal config |
-| `.config/aerospace/` | AeroSpace tiling window manager (macOS) |
-| `.Codex/` | Codex settings (symlinked to `~/.Codex/`) |
-| `.mcp.json` | MCP server config |
-| `setup-macos.sh` | macOS installer |
-| `linux/` | Omarchy/Arch installer + bashrc + extra packages |
+|---|---|
+| `mac/` | Plain Zsh, tmux, Git, mise, LazyVim, and Homebrew baseline |
+| `linux/` | Preserved Omarchy shell, desktop, agent, and optional app configs |
+| `mac/setup-macos.sh` | macOS installer |
+| `linux/setup-linux.sh` | Linux installer |
+| `tests/verify-layout.sh` | Static layout and syntax checks |
 
-## Neovim Configuration
+## macOS notes
 
-- Based on [LazyVim](https://lazyvim.org/)
-- Plugins managed via lazy.nvim (`lua/config/lazy.lua`)
-- Custom plugins go in `lua/plugins/*.lua`
-- Current colorscheme: gruvbox
+- The shell uses native Zsh completion and `vcs_info`; do not add Oh My Zsh or
+  Starship without an explicit request.
+- `mac/.zshrc`, `mac/.tmux.conf`, and `mac/.config/nvim/` reflect the baseline
+  Mac's active configuration.
+- Ghostty currently uses its defaults and AeroSpace is not part of the macOS
+  baseline.
+- Machine-local Git identity and credentials stay in `~/.gitconfig.local`.
 
-To add/modify plugins, edit files in `.config/nvim/lua/plugins/`. LazyVim conventions apply:
-- Return a table of plugin specs
-- Use `opts` to configure plugins
-- Use `{ import = "lazyvim.plugins.extras.X" }` for LazyVim extras
+## Neovim configuration
 
-## Key Conventions
-
-- Shell aliases use short forms (`v` for nvim, `ll` for detailed ls)
-- Git aliases prefer `fzf` for interactive selection (`gcob`, `gdb`)
-- AeroSpace uses Alt as the main modifier key
-- Symlinks are created from this repo to home directory locations
+Both platforms have independent LazyVim trees. Custom plugin specs belong in
+the relevant platform's `.config/nvim/lua/plugins/` directory. Follow LazyVim
+plugin-spec conventions and do not copy a change across platforms implicitly.
 
 ## Linux / Omarchy notes
 
-- `linux/setup-linux.sh` (a) appends an idempotent `source` line to
-  `~/.bashrc` for `linux/bashrc.local`, and (b) symlinks `.Codex/` +
-  `.mcp.json`. It deliberately avoids overriding Omarchy's nvim,
-  ghostty, and starship configs — the script prints opt-in commands at
-  the end.
-- `~/.bashrc` is intentionally **not** symlinked: Omarchy migrations
-  `sed -i` it in place. Personal additions live in `linux/bashrc.local`,
-  which `~/.bashrc` sources at the bottom.
-- `linux/bashrc.local` runs *after* Omarchy's bash defaults, so it
-  shouldn't re-source them or add an interactive-shell guard.
-- Most Brewfile packages are already in Omarchy; `linux/packages.txt`
-  only lists the gaps.
+- `linux/setup-linux.sh` appends an idempotent source line for
+  `linux/bashrc.local` to `~/.bashrc`.
+- `~/.bashrc` is intentionally not symlinked because Omarchy migrations edit it
+  in place.
+- Theme-influenced Hyprland and Waybar files are copied; user-owned configs are
+  symlinked.
+- Omarchy's Neovim, Ghostty, and Starship configs are preserved by default;
+  Linux-owned alternatives are opt-in.

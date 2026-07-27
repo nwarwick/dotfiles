@@ -12,7 +12,7 @@ print_warning() { echo -e "${YELLOW}Warning: $1${NC}"; }
 print_error()   { echo -e "${RED}Error: $1${NC}"; }
 
 if [[ "$(uname)" != "Linux" ]]; then
-    print_error "This script is for Linux. Use setup-macos.sh on macOS."
+    print_error "This script is for Linux. Use mac/setup-macos.sh on macOS."
     exit 1
 fi
 
@@ -81,33 +81,33 @@ else
 fi
 
 print_step "Linking Claude + MCP configs..."
-backup_and_link "$DOTFILES_DIR/.claude/CLAUDE.md" "$HOME/.claude/CLAUDE.md"
-backup_and_link "$DOTFILES_DIR/.claude/settings.json" "$HOME/.claude/settings.json"
-backup_and_link "$DOTFILES_DIR/.claude/commands"  "$HOME/.claude/commands"
-backup_and_link "$DOTFILES_DIR/.claude/agents"    "$HOME/.claude/agents"
-backup_and_link "$DOTFILES_DIR/.claude/statusline.sh" "$HOME/.claude/statusline.sh"
-backup_and_link "$DOTFILES_DIR/.mcp.json"         "$HOME/.mcp.json"
+backup_and_link "$LINUX_DIR/.claude/CLAUDE.md" "$HOME/.claude/CLAUDE.md"
+backup_and_link "$LINUX_DIR/.claude/settings.json" "$HOME/.claude/settings.json"
+backup_and_link "$LINUX_DIR/.claude/commands"  "$HOME/.claude/commands"
+backup_and_link "$LINUX_DIR/.claude/agents"    "$HOME/.claude/agents"
+backup_and_link "$LINUX_DIR/.claude/statusline.sh" "$HOME/.claude/statusline.sh"
+backup_and_link "$LINUX_DIR/.mcp.json"         "$HOME/.mcp.json"
 
 print_step "Linking user-owned Hyprland + Alacritty configs..."
 mkdir -p "$HOME/.config/hypr" "$HOME/.config/alacritty"
-backup_and_link "$DOTFILES_DIR/.config/hypr/bindings.conf" "$HOME/.config/hypr/bindings.conf"
-backup_and_link "$DOTFILES_DIR/.config/hypr/hyprland.conf" "$HOME/.config/hypr/hyprland.conf"
-backup_and_link "$DOTFILES_DIR/.config/hypr/hypridle.conf" "$HOME/.config/hypr/hypridle.conf"
-backup_and_link "$DOTFILES_DIR/.config/alacritty/alacritty.toml" "$HOME/.config/alacritty/alacritty.toml"
+backup_and_link "$LINUX_DIR/.config/hypr/bindings.conf" "$HOME/.config/hypr/bindings.conf"
+backup_and_link "$LINUX_DIR/.config/hypr/hyprland.conf" "$HOME/.config/hypr/hyprland.conf"
+backup_and_link "$LINUX_DIR/.config/hypr/hypridle.conf" "$HOME/.config/hypr/hypridle.conf"
+backup_and_link "$LINUX_DIR/.config/alacritty/alacritty.toml" "$HOME/.config/alacritty/alacritty.toml"
 
 # Theme-influenced files: copy as a starting point, don't symlink. Omarchy's
 # theme switcher rewrites these, and we don't want those edits flowing back
 # into git. Per-machine monitors.conf is intentionally excluded.
 print_step "Seeding theme-adjacent configs (one-time copy)..."
 mkdir -p "$HOME/.config/waybar"
-backup_and_copy "$DOTFILES_DIR/.config/hypr/looknfeel.conf"  "$HOME/.config/hypr/looknfeel.conf"
-backup_and_copy "$DOTFILES_DIR/.config/hypr/omambience.conf" "$HOME/.config/hypr/omambience.conf"
-backup_and_copy "$DOTFILES_DIR/.config/waybar/config.jsonc"  "$HOME/.config/waybar/config.jsonc"
-backup_and_copy "$DOTFILES_DIR/.config/waybar/style.css"     "$HOME/.config/waybar/style.css"
+backup_and_copy "$LINUX_DIR/.config/hypr/looknfeel.conf"  "$HOME/.config/hypr/looknfeel.conf"
+backup_and_copy "$LINUX_DIR/.config/hypr/omambience.conf" "$HOME/.config/hypr/omambience.conf"
+backup_and_copy "$LINUX_DIR/.config/waybar/config.jsonc"  "$HOME/.config/waybar/config.jsonc"
+backup_and_copy "$LINUX_DIR/.config/waybar/style.css"     "$HOME/.config/waybar/style.css"
 
 print_step "Linking personal ~/.local/bin scripts..."
 mkdir -p "$HOME/.local/bin"
-for script in "$DOTFILES_DIR"/.local/bin/*; do
+for script in "$LINUX_DIR"/.local/bin/*; do
     [[ -f "$script" ]] || continue
     backup_and_link "$script" "$HOME/.local/bin/$(basename "$script")"
 done
@@ -125,6 +125,6 @@ echo "Next steps:"
 echo "  1. Open a new shell or run: source ~/.bashrc"
 echo ""
 echo "Optional (these will overwrite Omarchy's defaults — opt in deliberately):"
-echo "  ln -sfn $DOTFILES_DIR/.config/nvim     ~/.config/nvim"
-echo "  ln -sfn $DOTFILES_DIR/.config/ghostty  ~/.config/ghostty"
-echo "  ln -sf  $DOTFILES_DIR/.config/starship.toml ~/.config/starship.toml"
+echo "  ln -sfn $LINUX_DIR/.config/nvim     ~/.config/nvim"
+echo "  ln -sfn $LINUX_DIR/.config/ghostty  ~/.config/ghostty"
+echo "  ln -sf  $LINUX_DIR/.config/starship.toml ~/.config/starship.toml"
