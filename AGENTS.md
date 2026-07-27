@@ -23,7 +23,6 @@ must continue to work using only files beneath its own directory.
 | `linux/` | Preserved Omarchy shell, desktop, agent, and optional app configs |
 | `mac/setup-macos.sh` | macOS installer |
 | `linux/setup-linux.sh` | Linux installer |
-| `tests/verify-layout.sh` | Static layout and syntax checks |
 
 ## macOS notes
 
