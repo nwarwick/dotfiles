@@ -30,7 +30,7 @@ else
     print_warning "pacman not found; skipping package install"
 fi
 
-mkdir -p ~/.config ~/.claude ~/.config/opencode
+mkdir -p ~/.config ~/.claude ~/.config/herdr ~/.config/opencode
 
 backup_and_link() {
     local src="$1"
@@ -139,6 +139,9 @@ backup_and_link "$LINUX_DIR/.mcp.json"         "$HOME/.mcp.json"
 print_step "Linking OpenCode configs..."
 backup_and_link "$LINUX_DIR/.config/opencode/opencode.jsonc" "$HOME/.config/opencode/opencode.jsonc"
 backup_and_link "$LINUX_DIR/.config/opencode/tui.json" "$HOME/.config/opencode/tui.json"
+
+print_step "Linking Herdr config..."
+backup_and_link "$LINUX_DIR/.config/herdr/config.toml" "$HOME/.config/herdr/config.toml"
 
 print_step "Linking user-owned Hyprland + Alacritty configs..."
 mkdir -p "$HOME/.config/hypr" "$HOME/.config/alacritty"
