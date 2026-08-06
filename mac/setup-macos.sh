@@ -41,7 +41,11 @@ fi
 print_step "Installing Homebrew packages..."
 brew bundle --file="$MAC_DIR/Brewfile"
 
-mkdir -p "$HOME/.config" "$HOME/.config/mise" "$HOME/.config/opencode"
+mkdir -p \
+    "$HOME/.config" \
+    "$HOME/.config/herdr" \
+    "$HOME/.config/mise" \
+    "$HOME/.config/opencode"
 
 backup_and_link() {
     local src="$1"
@@ -66,6 +70,7 @@ backup_and_link "$MAC_DIR/.zprofile" "$HOME/.zprofile"
 backup_and_link "$MAC_DIR/.zshrc" "$HOME/.zshrc"
 backup_and_link "$MAC_DIR/.gitconfig" "$HOME/.gitconfig"
 backup_and_link "$MAC_DIR/.tmux.conf" "$HOME/.tmux.conf"
+backup_and_link "$MAC_DIR/.config/herdr/config.toml" "$HOME/.config/herdr/config.toml"
 backup_and_link "$MAC_DIR/.config/nvim" "$HOME/.config/nvim"
 backup_and_link "$MAC_DIR/.config/mise/config.toml" "$HOME/.config/mise/config.toml"
 backup_and_link "$MAC_DIR/.config/opencode/opencode.jsonc" "$HOME/.config/opencode/opencode.jsonc"

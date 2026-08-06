@@ -14,8 +14,8 @@ The installer:
 
 1. Installs Xcode Command Line Tools and Homebrew when needed.
 2. Installs the packages in `mac/Brewfile`.
-3. Backs up existing targets and symlinks the tracked Zsh, Git, tmux, Neovim,
-   mise, and OpenCode configuration.
+3. Backs up existing targets and symlinks the tracked Zsh, Git, tmux, Herdr,
+   Neovim, mise, and OpenCode configuration.
 4. Installs the pinned tmux navigator and clipboard plugins.
 
 ## Managed files
@@ -26,6 +26,7 @@ The installer:
 | `mac/.zshrc` | `~/.zshrc` |
 | `mac/.gitconfig` | `~/.gitconfig` |
 | `mac/.tmux.conf` | `~/.tmux.conf` |
+| `mac/.config/herdr/config.toml` | `~/.config/herdr/config.toml` |
 | `mac/.config/nvim` | `~/.config/nvim` |
 | `mac/.config/mise/config.toml` | `~/.config/mise/config.toml` |
 | `mac/.config/opencode/opencode.jsonc` | `~/.config/opencode/opencode.jsonc` |
