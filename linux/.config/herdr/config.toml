@@ -1,3 +1,4 @@
+onboarding = false
 # Match the active tmux keymap in ~/.config/tmux/tmux.conf.
 [keys]
 prefix = "ctrl+space"
@@ -60,3 +61,7 @@ key = "ctrl+alt+shift+right"
 type = "shell"
 command = '"$HERDR_BIN_PATH" pane resize --pane "$HERDR_ACTIVE_PANE_ID" --direction right'
 description = "Resize pane right"
+
+[theme]
+name = "terminal"
+auto_switch = false
